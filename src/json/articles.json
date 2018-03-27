@@ -1,0 +1,73 @@
+[{
+  "id": 1,
+  "author": "Nancy Dillon",
+  "title": "Alaska Airlines pilot allegedly drugged and raped by co-pilot who is still employed",
+  "description": "An Alaska Airlines pilot filed a lawsuit Wednesday claiming she was drugged and raped last year by a co-pilot who remains on the job.",
+  "url": null,
+  "tags": ["tag1", "tag2", "tag3"],
+  "link": "/articles/article1"
+},
+  {
+    "id": 2,
+    "author": "Arjun Kharpal",
+    "title": "Over $60 billion wiped off value of cryptocurrencies in 24 hours as bitcoin slide continues",
+    "description": "Increased regulatory scrutiny, Google banning cryptocurrency-related ads, and continued bitcoin selling by the trustee of Mt.Gox, was behind the fall in cryptocurrency prices.",
+    "url": null,
+    "tags": ["tag1"],
+    "link": "/articles/article2"
+  },
+  {
+    "id": 3,
+    "author": "Saabira Chaudhuri",
+    "title": "Unilever Picks Rotterdam Over London for Headquarters",
+    "description": "Unilever has decided to consolidate its dual headquarters in Rotterdam over London, in an emotionally charged move that came despite last-minute lobbying from the British government.",
+    "url": null,
+    "tags": ["tag2"],
+    "link": "/articles/article3"
+  },
+  {
+    "id": 4,
+    "author": "Billboard.com",
+    "title": "iHeartMedia's Chapter 11 Filing: What Happens Next for the Radio Giant",
+    "description": "iHeartMedia and some of its subsidiaries filed for Chapter 11 protection last night after reaching a pre-packaged agreement with its principle creditors that will apparently see the company cut its debt in half to $10 billion.",
+    "url": null,
+    "tags": ["tag3", "tag4"],
+    "link": "/articles/article4"
+  },
+  {
+    "id": 5,
+    "author": "Nancy Dillon",
+    "title": "Alaska Airlines pilot allegedly drugged and raped by co-pilot who is still employed",
+    "description": "An Alaska Airlines pilot filed a lawsuit Wednesday claiming she was drugged and raped last year by a co-pilot who remains on the job.",
+    "url": null,
+    "tags": ["tag1", "tag2", "tag3"],
+    "link": "/articles/article5"
+  },
+  {
+    "id": 6,
+    "author": "Arjun Kharpal",
+    "title": "Over $60 billion wiped off value of cryptocurrencies in 24 hours as bitcoin slide continues",
+    "description": "Increased regulatory scrutiny, Google banning cryptocurrency-related ads, and continued bitcoin selling by the trustee of Mt.Gox, was behind the fall in cryptocurrency prices.",
+    "url": null,
+    "tags": ["tag1"],
+    "link": "/articles/article6"
+  },
+  {
+    "id": 7,
+    "author": "Saabira Chaudhuri",
+    "title": "Unilever Picks Rotterdam Over London for Headquarters",
+    "description": "Unilever has decided to consolidate its dual headquarters in Rotterdam over London, in an emotionally charged move that came despite last-minute lobbying from the British government.",
+    "url": null,
+    "tags": ["tag2"],
+    "link": "/articles/article7"
+  },
+  {
+    "id": 8,
+    "author": "Billboard.com",
+    "title": "iHeartMedia's Chapter 11 Filing: What Happens Next for the Radio Giant",
+    "description": "iHeartMedia and some of its subsidiaries filed for Chapter 11 protection last night after reaching a pre-packaged agreement with its principle creditors that will apparently see the company cut its debt in half to $10 billion.",
+    "url": null,
+    "tags": ["tag3", "tag4"],
+    "link": "/articles/article8"
+  }
+]
