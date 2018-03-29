@@ -1,18 +1,25 @@
-import React, { Component } from 'react';
-import '../../css/App.css';
-import ArticleList from '../components/ArticleList';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import * as articleActions from '../actions'
+
+import '../../css/App.css'
+
+import ArticleList from '../components/ArticleList'
 import Tag from '../components/Tag'
 import LiveSearch from '../components/LiveSearch'
 import Preloader from '../components/Preloader'
+
 import getData from '../GetData'
 
-export default class ArticlesListPage extends Component {
+export class ArticlesListPage extends Component {
   state = {
-    currentTag: null,
     isLoading: false,
     liveSearchString: '',
     dataObject: []
   };
+
+  actions = this.props.articleActions;
 
   getAllTags = (data) => {
     let tagsArray = [];
@@ -27,25 +34,25 @@ export default class ArticlesListPage extends Component {
   };
 
   getArticlesList = (tag, string) => {
-    if (this.state.currentTag === null && this.state.liveSearchString === "")  {
+    if (this.props.currentTag === null && this.state.liveSearchString === "")  {
       return this.state.dataObject;
     }
 
     const lowerString = string.toLowerCase();
 
-    if (this.state.currentTag === null) return this.dataObject.filter(current => current.title.toLowerCase().indexOf(lowerString) !== -1);
+    if (this.props.currentTag === null) return this.dataObject.filter(current => current.title.toLowerCase().indexOf(lowerString) !== -1);
 
     return this.state.dataObject.filter((current) => {
       return (current.tags.includes(tag) && (current.title.toLowerCase().indexOf(lowerString) !== -1));
     });
   };
 
-  tagClick = (e) => {
-    this.setState({currentTag: e.target.innerHTML})
+  tagClick = (tag) => () => {
+    this.actions.setTag(tag);
   };
 
   clearFilter = () => {
-    this.setState({currentTag: null});
+    this.actions.setTag(null);
   };
 
   inputChange = (e) => {
@@ -68,12 +75,13 @@ export default class ArticlesListPage extends Component {
           <button className="btn btn-link" onClick={this.clearFilter}>All</button>
           {this.getAllTags(this.state.dataObject).map((current,i) => <Tag key={i} tagName={current} dataClick={this.tagClick} dataType="link"/>)}
         </div>
-        <ArticleList data={this.getArticlesList(this.state.currentTag, this.state.liveSearchString)} dataClick={this.tagClick} dataSearchString={this.state.liveSearchString}/>
+        <ArticleList data={this.getArticlesList(this.props.currentTag, this.state.liveSearchString)} dataClick={this.tagClick} dataSearchString={this.state.liveSearchString}/>
       </div>
     )
   };
 
   render() {
+    console.log(this.props);
     return (
         <div className="App">
           { this.state.isLoading && <Preloader /> }
@@ -82,3 +90,19 @@ export default class ArticlesListPage extends Component {
     );
   }
 }
+
+function mapStateToProps (state) {
+  return {
+    currentTag: state.articleList.currentTag
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    articleActions: bindActionCreators(articleActions, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ArticlesListPage);
+
+

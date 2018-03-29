@@ -5,10 +5,11 @@ import { Provider } from 'react-redux';
 import './css/index.css';
 import './css/App.css';
 import App from './app/App';
-import store from './app/store';
+import store from './app/store/configureStore';
 import registerServiceWorker from './registerServiceWorker';
+
 ReactDOM.render(
-    <Provider store={store}>
+    <Provider store={store()}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
