@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import * as articleActions from '../actions'
 
 import '../../css/App.css'
+
+import * as articleActions from '../actions'
 
 import ArticleList from '../components/ArticleList'
 import Tag from '../components/Tag'
@@ -15,7 +16,6 @@ import getData from '../GetData'
 export class ArticlesListPage extends Component {
   state = {
     isLoading: false,
-    liveSearchString: '',
     dataObject: []
   };
 
@@ -34,15 +34,18 @@ export class ArticlesListPage extends Component {
   };
 
   getArticlesList = (tag, string) => {
-    if (this.props.currentTag === null && this.state.liveSearchString === "")  {
-      return this.state.dataObject;
+    if (tag === null && string === "")  {
+      return this.props.dataObject;
     }
 
     const lowerString = string.toLowerCase();
 
-    if (this.props.currentTag === null) return this.dataObject.filter(current => current.title.toLowerCase().indexOf(lowerString) !== -1);
 
-    return this.state.dataObject.filter((current) => {
+    if (tag === null) return this.props.dataObject.filter((current) => {
+      return current.title.toLowerCase().indexOf(lowerString) !== -1
+    });
+
+    return this.props.dataObject.filter((current) => {
       return (current.tags.includes(tag) && (current.title.toLowerCase().indexOf(lowerString) !== -1));
     });
   };
@@ -56,32 +59,32 @@ export class ArticlesListPage extends Component {
   };
 
   inputChange = (e) => {
-    this.setState({liveSearchString: e.target.value});
+    this.actions.setLivesearch(e.target.value);
   };
 
   componentWillMount() {
     this.setState({ isLoading: true });
 
     getData().then((data) => {
-        this.setState({ isLoading: false, dataObject: data });
+        this.setState({ isLoading: false });
+        this.actions.setData(data);
       }).catch(alert);
   };
 
   getPageContent = () => {
     return (
       <div className="container">
-        <LiveSearch dataChange={this.inputChange} dataValue={this.state.liveSearchString} />
+        <LiveSearch dataChange={this.inputChange} dataValue={this.props.liveSearchString} />
         <div className="tags-wrap mb-40">
           <button className="btn btn-link" onClick={this.clearFilter}>All</button>
-          {this.getAllTags(this.state.dataObject).map((current,i) => <Tag key={i} tagName={current} dataClick={this.tagClick} dataType="link"/>)}
+          {this.getAllTags(this.props.dataObject).map((current,i) => <Tag key={i} tagName={current} dataClick={this.tagClick} dataType="link"/>)}
         </div>
-        <ArticleList data={this.getArticlesList(this.props.currentTag, this.state.liveSearchString)} dataClick={this.tagClick} dataSearchString={this.state.liveSearchString}/>
+        <ArticleList data={this.getArticlesList(this.props.currentTag, this.props.liveSearchString)} dataClick={this.tagClick}/>
       </div>
     )
   };
 
   render() {
-    console.log(this.props);
     return (
         <div className="App">
           { this.state.isLoading && <Preloader /> }
@@ -93,7 +96,9 @@ export class ArticlesListPage extends Component {
 
 function mapStateToProps (state) {
   return {
-    currentTag: state.articleList.currentTag
+    currentTag: state.articleList.currentTag,
+    liveSearchString: state.articleList.liveSearchString,
+    dataObject: state.articleList.dataObject
   }
 }
 

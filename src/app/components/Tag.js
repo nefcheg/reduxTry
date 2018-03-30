@@ -1,7 +1,7 @@
 import React , { Component } from 'react';
 
 export default class Tag extends Component {
-  btnType = "btn btn-" + this.props.dataType;
+  btnType = "btn btn-primary";
 
   render() {
     return (

@@ -22,6 +22,7 @@
   font-size: large;
 }
 .tags-wrap{
+    font-size: 20px;
 }
 
 .tags-wrap.center{
@@ -33,10 +34,8 @@
     margin-bottom: 60px;
 }
 
-.tag{
-    text-decoration: underline;
-    cursor: pointer;
-    margin: 0 10px 0px;
+.btn{
+    margin: 5px;
 }
 
 .tag:hover{
