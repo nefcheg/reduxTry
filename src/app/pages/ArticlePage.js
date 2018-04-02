@@ -12,16 +12,15 @@ export default class ArticlePage extends Component {
 
   componentWillMount() {
     this.setState({ isWaiting: true });
-    console.log(getData());
-    let arcticleObj;
+    let articleObj;
     getData().then((data) => {
         data.forEach((current) => {
           if (current.id === +this.articleId) {
-            arcticleObj = current;
+            articleObj = current;
             return false;
           }
         });
-        this.setState({ isWaiting: false, dataObject: arcticleObj });
+        this.setState({ isWaiting: false, dataObject: articleObj });
       }).catch(alert);
   };
 

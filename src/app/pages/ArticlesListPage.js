@@ -7,7 +7,7 @@ import '../../css/App.css'
 import * as articleActions from '../actions'
 
 import ArticleList from '../components/ArticleList'
-import Tag from '../components/Tag'
+import TagList from '../components/TagList'
 import LiveSearch from '../components/LiveSearch'
 import Preloader from '../components/Preloader'
 
@@ -15,12 +15,14 @@ import getData from '../GetData'
 
 export class ArticlesListPage extends Component {
   state = {
-    isLoading: false,
-    dataObject: []
+    isWaiting: false
   };
 
   actions = this.props.articleActions;
 
+
+
+  //получение полного списка тегов
   getAllTags = (data) => {
     let tagsArray = [];
 
@@ -33,6 +35,9 @@ export class ArticlesListPage extends Component {
     return tagsArray;
   };
 
+
+
+  //Получение списка отфильтрованных статей
   getArticlesList = (tag, string) => {
     if (tag === null && string === "")  {
       return this.props.dataObject;
@@ -50,36 +55,36 @@ export class ArticlesListPage extends Component {
     });
   };
 
+
+
+  //выбор активного тега
   tagClick = (tag) => () => {
     this.actions.setTag(tag);
   };
 
-  clearFilter = () => {
-    this.actions.setTag(null);
-  };
-
+  //livesearch
   inputChange = (e) => {
     this.actions.setLivesearch(e.target.value);
   };
 
+  //загрузка данных
   componentWillMount() {
-    this.setState({ isLoading: true });
+    this.setState({ isWaiting: true });
 
     getData().then((data) => {
-        this.setState({ isLoading: false });
+        this.setState({ isWaiting: false });
         this.actions.setData(data);
       }).catch(alert);
   };
 
-  getPageContent = () => {
+  //------------------------------------------------
+
+  getPageJSX = () => {
     return (
       <div className="container">
         <LiveSearch dataChange={this.inputChange} dataValue={this.props.liveSearchString} />
-        <div className="tags-wrap mb-40">
-          <button className="btn btn-link" onClick={this.clearFilter}>All</button>
-          {this.getAllTags(this.props.dataObject).map((current,i) => <Tag key={i} tagName={current} dataClick={this.tagClick} dataType="link"/>)}
-        </div>
-        <ArticleList data={this.getArticlesList(this.props.currentTag, this.props.liveSearchString)} dataClick={this.tagClick}/>
+        <TagList dataTagList={this.getAllTags(this.props.dataObject)} dataSetTag={this.tagClick} dataActiveTag={this.props.currentTag} isOuter={true}/>
+        <ArticleList data={this.getArticlesList(this.props.currentTag, this.props.liveSearchString)} dataActiveTag={this.props.currentTag} dataClick={this.tagClick}/>
       </div>
     )
   };
@@ -87,8 +92,8 @@ export class ArticlesListPage extends Component {
   render() {
     return (
         <div className="App">
-          { this.state.isLoading && <Preloader /> }
-          { !this.state.isLoading && this.getPageContent() }
+          { this.state.isWaiting && <Preloader /> }
+          { !this.state.isWaiting && this.getPageJSX() }
         </div>
     );
   }

@@ -1,5 +1,5 @@
 import React , { Component } from 'react';
-import Tag from './Tag'
+import TagList from './TagList'
 import { Link } from 'react-router-dom';
 
 export default class ArticleItem extends Component{
@@ -10,7 +10,7 @@ export default class ArticleItem extends Component{
         <div className="card box-shadow">
           <div className="card-body">
             <h3>{title}</h3>
-            <div className="tags-wrap">{tags.map((current, i) => <Tag key={i} tagName={current} dataType="link" dataClick={this.props.dataClick} />)}</div>
+            <TagList dataTagList={tags} dataSetTag={this.props.dataClick} dataActiveTag={this.props.dataActiveTag} isOuter={false}/>
           </div>
           <Link className="btn btn-secondary" to={link} role="button">View details »</Link>
         </div>
