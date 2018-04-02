@@ -1,14 +1,22 @@
 import React, { Component } from 'react';
-import '../../css/App.css';
-import getData from '../GetData'
-import Preloader from '../components/Preloader'
+import {bindActionCreators} from "redux";
+import {connect} from "react-redux";
 
-export default class ArticlePage extends Component {
+import '../../css/App.css';
+
+import * as articleItemActions from "../actions/ArticleItemActions";
+
+import Preloader from '../components/Preloader'
+import getData from '../GetData'
+
+
+class ArticlePage extends Component {
   state = {
-    isWaiting: false,
-    dataObject: []
+    isWaiting: false
   };
+
   articleId = this.props.match.params.id;
+  actions = this.props.articleItemActions;
 
   componentWillMount() {
     this.setState({ isWaiting: true });
@@ -20,19 +28,40 @@ export default class ArticlePage extends Component {
             return false;
           }
         });
-        this.setState({ isWaiting: false, dataObject: articleObj });
+        this.actions.setArticle(articleObj);
+        this.setState({ isWaiting: false });
       }).catch(alert);
+  };
+
+  getPageJSX = () => {
+    return (
+      <div className="container">
+        <h1>{this.props.currentArticle.title}</h1>
+        <p>{this.props.currentArticle.description}</p>
+      </div>
+    )
   };
 
   render() {
     return (
       <div>
         {(this.state.isWaiting) && <Preloader />}
-        <div className="container">
-          <h1>{this.state.dataObject.title}</h1>
-          <p>{this.state.dataObject.description}</p>
-        </div>
+        {(!this.state.isWaiting) && this.getPageJSX()}
       </div>
     );
   }
 }
+
+function mapStateToProps (state) {
+  return {
+    currentArticle: state.articleItem.currentArticle,
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    articleItemActions: bindActionCreators(articleItemActions, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ArticlePage);

@@ -11,7 +11,7 @@ export default class ArticleList extends Component{
 
    return (
      <div className="row">
-       {data.map((current, i) => <ArticleItem key={i} dataClick={dataClick} dataItem={current} dataActiveTag={this.props.dataActiveTag}/>)}
+       { data.map((current, i) => <ArticleItem key={i} dataClick={dataClick} dataItem={current} dataActiveTag={this.props.dataActiveTag}/>) }
      </div>
    );
  }

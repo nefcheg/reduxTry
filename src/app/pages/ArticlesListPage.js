@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 
 import '../../css/App.css'
 
-import * as articleActions from '../actions'
+import * as articleListActions from '../actions/ArticleListActions'
 
 import ArticleList from '../components/ArticleList'
 import TagList from '../components/TagList'
@@ -18,9 +18,7 @@ export class ArticlesListPage extends Component {
     isWaiting: false
   };
 
-  actions = this.props.articleActions;
-
-
+  actions = this.props.articleListActions;
 
   //получение полного списка тегов
   getAllTags = (data) => {
@@ -54,8 +52,6 @@ export class ArticlesListPage extends Component {
       return (current.tags.includes(tag) && (current.title.toLowerCase().indexOf(lowerString) !== -1));
     });
   };
-
-
 
   //выбор активного тега
   tagClick = (tag) => () => {
@@ -109,7 +105,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    articleActions: bindActionCreators(articleActions, dispatch)
+    articleListActions: bindActionCreators(articleListActions, dispatch)
   }
 }
 
