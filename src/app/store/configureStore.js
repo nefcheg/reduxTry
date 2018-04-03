@@ -1,8 +1,16 @@
-import { createStore } from 'redux';
-import rootReducer from '../reducers';
+import { createStore, applyMiddleware } from 'redux'
+import rootReducer from '../reducers'
+import thunk from 'redux-thunk'
 
-const configureStore = (initialState) => {
-  return createStore(rootReducer, initialState);
+var ping = function ping(store) {
+  return function (next) {
+    return function (action) {
+      console.log('ping');
+      return next(action);
+    };
+  };
 };
 
-export default configureStore;
+export default function configureStore(initialState) {
+  return createStore(rootReducer, initialState, applyMiddleware(thunk));
+}

@@ -1,9 +1,10 @@
-import {SET_DATA, SET_LIVESEARCH, SET_TAG} from "../constants";
+import {SET_DATA, SET_LIVESEARCH, SET_TAG, GET_DATA_SUCCESS, GET_DATA_REQUEST} from "../constants";
 
 const initialState = {
   currentTag: null,
   liveSearchString: "",
-  dataObject: []
+  dataObject: [],
+  isWaiting: false
 };
 
 export const articleList = (state = initialState, action) => {
@@ -18,6 +19,14 @@ export const articleList = (state = initialState, action) => {
 
     case SET_DATA: {
       return {...state, dataObject: action.payload}
+    }
+
+    case GET_DATA_REQUEST: {
+      return {...state, isWaiting: true}
+    }
+
+    case GET_DATA_SUCCESS: {
+      return {...state, isWaiting: false, dataObject: action.payload.data}
     }
 
     default: return state;

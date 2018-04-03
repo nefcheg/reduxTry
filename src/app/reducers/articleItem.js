@@ -1,8 +1,7 @@
 import {SET_ARTICLE} from "../constants";
 
 const initialState = {
-  currentArticle: {},
-  //isWaiting: false
+  currentArticle: {}
 };
 
 export const articleItem = (state = initialState, action) => {

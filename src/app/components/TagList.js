@@ -2,7 +2,6 @@ import React from 'react';
 
 export default class TagList extends React.Component{
     render() {
-      console.log(this.props.isOuter);
       return (
         <div className={`tags-wrap${((this.props.isOuter) ? " mb-40" : "")}`}>
           { this.props.isOuter && <button className={`btn${((this.props.dataActiveTag === null) ? " btn-success" : "")}`} onClick={this.props.dataSetTag(null)}>All</button> }

@@ -20,15 +20,15 @@ class ArticlePage extends Component {
 
   componentWillMount() {
     this.setState({ isWaiting: true });
-    let articleObj;
+
     getData().then((data) => {
         data.forEach((current) => {
           if (current.id === +this.articleId) {
-            articleObj = current;
+            this.actions.setArticle(current);
             return false;
           }
         });
-        this.actions.setArticle(articleObj);
+
         this.setState({ isWaiting: false });
       }).catch(alert);
   };

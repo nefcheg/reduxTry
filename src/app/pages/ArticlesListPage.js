@@ -64,13 +64,16 @@ export class ArticlesListPage extends Component {
   };
 
   //загрузка данных
-  componentWillMount() {
-    this.setState({ isWaiting: true });
-
-    getData().then((data) => {
-        this.setState({ isWaiting: false });
-        this.actions.setData(data);
-      }).catch(alert);
+  componentDidMount() {
+    // this.setState({ isWaiting: true });
+    //
+    // getData().then((data) => {
+    //     this.setState({ isWaiting: false });
+    //     this.actions.setData(data);
+    //   }).catch(alert);
+    if (this.props.dataObject.length === 0) {
+      this.actions.getData()
+    }
   };
 
   //------------------------------------------------
@@ -88,8 +91,8 @@ export class ArticlesListPage extends Component {
   render() {
     return (
         <div className="App">
-          { this.state.isWaiting && <Preloader /> }
-          { !this.state.isWaiting && this.getPageJSX() }
+          { this.props.isWaiting && <Preloader /> }
+          { !this.props.isWaiting && this.getPageJSX() }
         </div>
     );
   }
@@ -99,7 +102,8 @@ function mapStateToProps (state) {
   return {
     currentTag: state.articleList.currentTag,
     liveSearchString: state.articleList.liveSearchString,
-    dataObject: state.articleList.dataObject
+    dataObject: state.articleList.dataObject,
+    isWaiting: state.articleList.isWaiting
   }
 }
 
